@@ -126,14 +126,14 @@ describe('updateResourceRecord', () => {
     expect(updated.context).toEqual({ selector: 'img.hero' });
   });
 
-  test('advances updatedAt', (done) => {
-    setTimeout(() => {
-      const updated = updateResourceRecord(record, { label: 'Later' });
-      expect(new Date(updated.updatedAt).getTime()).toBeGreaterThanOrEqual(
-        new Date(record.updatedAt).getTime()
-      );
-      done();
-    }, 5);
+  test('advances updatedAt', () => {
+    jest.useFakeTimers();
+    jest.setSystemTime(new Date(record.updatedAt).getTime() + 1000);
+    const updated = updateResourceRecord(record, { label: 'Later' });
+    expect(new Date(updated.updatedAt).getTime()).toBeGreaterThan(
+      new Date(record.updatedAt).getTime()
+    );
+    jest.useRealTimers();
   });
 
   test('does not mutate original record', () => {

@@ -78,6 +78,17 @@
     } catch (_) { return url; }
   }
 
+  function isIiifContext(ctxStr) {
+    return ctxStr.split(/\s+/).some(function (token) {
+      try {
+        var u = new URL(token);
+        return u.hostname === 'iiif.io' && u.pathname.startsWith('/api/');
+      } catch (_) {
+        return false;
+      }
+    });
+  }
+
   function buildSelector(el) {
     if (el.id) return '#' + el.id;
     var tag = el.tagName.toLowerCase();
@@ -98,7 +109,7 @@
 
   // ── Patterns ────────────────────────────────────────────────────────────
 
-  var IIIF_IMAGE_API_RE = /\/(?:full|square|pct:\d[\d,]*)\/(?:full|max|\d+,|,\d+|\d+,\d+|pct:\d+)\/[0-9]+\/(?:default|native|color|gray|bitonal)\.(?:jpg|jpeg|tif|tiff|png|gif|jp2|pdf|webp)/i;
+  var IIIF_IMAGE_API_RE = /\/(?:full|square|pct:\d+(?:,\d+)*(?:,\d+)*(?:,\d+)*|\d+,\d*,\d*,\d*)\/(?:full|max|\d+,|,\d+|\d+,\d+|pct:\d+)\/[0-9]+\/(?:default|native|color|gray|bitonal)\.(?:jpg|jpeg|tif|tiff|png|gif|jp2|pdf|webp)/i;
   var IIIF_INFO_JSON_RE = /\/info\.json(?:[?#].*)?$/i;
   var IIIF_VIEWER_RE = /(?:universalviewer|mirador|openseadragon|tify|leaflet-iiif)/i;
   var MIN_IMAGE_DIMENSION = 400;
@@ -161,7 +172,7 @@
         var type = item['@type'] || '';
         var ctxStr = Array.isArray(ctx) ? ctx.join(' ') : String(ctx);
 
-        if (ctxStr.includes('//iiif.io/') || type === 'sc:Manifest' || type === 'Manifest') {
+        if (isIiifContext(ctxStr) || type === 'sc:Manifest' || type === 'Manifest') {
           var url = item.id || item['@id'] || null;
           hits.push({
             resourceType: ResourceType.MANIFEST,

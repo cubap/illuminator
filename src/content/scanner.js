@@ -19,7 +19,17 @@ import { createResourceRecord, ResourceType, Confidence, DetectedVia } from '../
 // Internal helpers
 // ---------------------------------------------------------------------------
 
-/** IIIF Image API path segment pattern: /{region}/{size}/{rotation}/{quality}.{format} */
+/**
+ * IIIF Image API v2/v3 path segment pattern.
+ * Full URL form: {scheme}://{server}/{prefix}/{identifier}/{region}/{size}/{rotation}/{quality}.{format}
+ * This regex matches the trailing API parameters: /{region}/{size}/{rotation}/{quality}.{format}
+ *
+ * region  – full | square | pct:n | x,y,w,h
+ * size    – full | max | w, | ,h | w,h | pct:n
+ * rotation – 0-360 integer
+ * quality – default | native | color | gray | bitonal
+ * format  – jpg | jpeg | tif | tiff | png | gif | jp2 | pdf | webp
+ */
 const IIIF_IMAGE_API_RE = /\/(?:full|square|pct:\d+(?:,\d+)*(?:,\d+)*(?:,\d+)*|\d+,\d*,\d*,\d*)\/(?:full|max|\d+,|,\d+|\d+,\d+|pct:\d+)\/[0-9]+\/(?:default|native|color|gray|bitonal)\.(?:jpg|jpeg|tif|tiff|png|gif|jp2|pdf|webp)/i;
 
 /** Matches a bare IIIF base URI ending in an identifier (heuristic). */
@@ -64,6 +74,23 @@ function labelFromUrl(url) {
   } catch (_) {
     return url;
   }
+}
+
+/**
+ * Check whether any of the URLs in a JSON-LD @context value belong to iiif.io.
+ * Uses proper URL parsing to avoid substring-matching false positives.
+ * @param {string} ctxStr – space-joined context string
+ * @returns {boolean}
+ */
+function isIiifContext(ctxStr) {
+  return ctxStr.split(/\s+/).some((token) => {
+    try {
+      const u = new URL(token);
+      return u.hostname === 'iiif.io' && u.pathname.startsWith('/api/');
+    } catch (_) {
+      return false;
+    }
+  });
 }
 
 // ---------------------------------------------------------------------------
@@ -143,7 +170,7 @@ function detectJsonLd() {
 
       // IIIF Presentation v2 / v3
       if (
-        ctxStr.includes('//iiif.io/') ||
+        isIiifContext(ctxStr) ||
         type === 'sc:Manifest' ||
         type === 'Manifest'
       ) {

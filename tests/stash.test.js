@@ -150,15 +150,15 @@ describe('stash: updateInStash', () => {
     expect(stash[1].label).toBe('B');
   });
 
-  test('updates updatedAt timestamp', (done) => {
-    const rec = makeRecord();
-    setTimeout(() => {
-      const stash = updateInStash([rec], rec.id, { label: 'New' });
-      expect(new Date(stash[0].updatedAt).getTime()).toBeGreaterThanOrEqual(
-        new Date(rec.updatedAt).getTime()
-      );
-      done();
-    }, 5);
+  test('updates updatedAt timestamp', () => {
+    const r = makeRecord({ label: 'Start' });
+    jest.useFakeTimers();
+    jest.setSystemTime(new Date(r.updatedAt).getTime() + 1000);
+    const stash = updateInStash([r], r.id, { label: 'New' });
+    expect(new Date(stash[0].updatedAt).getTime()).toBeGreaterThan(
+      new Date(r.updatedAt).getTime()
+    );
+    jest.useRealTimers();
   });
 });
 

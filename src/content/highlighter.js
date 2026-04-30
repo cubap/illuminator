@@ -83,17 +83,13 @@
       }
 
       const overlay = getOrCreateOverlay();
-      overlay.style.top = `${rect.top + window.scrollY}px`;
-      overlay.style.left = `${rect.left + window.scrollX}px`;
+      overlay.style.position = 'fixed';
+      overlay.style.top = `${rect.top}px`;
+      overlay.style.left = `${rect.left}px`;
       overlay.style.width = `${rect.width}px`;
       overlay.style.height = `${rect.height}px`;
       overlay.style.opacity = '1';
       overlay.style.display = 'block';
-
-      // Ensure position is relative to viewport
-      overlay.style.position = 'fixed';
-      overlay.style.top = `${rect.top}px`;
-      overlay.style.left = `${rect.left}px`;
     } catch (_) {
       // Fail silently – highlighting must never block workflows
     }

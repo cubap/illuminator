@@ -143,7 +143,7 @@ function detectJsonLd() {
 
       // IIIF Presentation v2 / v3
       if (
-        ctxStr.includes('iiif.io') ||
+        ctxStr.includes('//iiif.io/') ||
         type === 'sc:Manifest' ||
         type === 'Manifest'
       ) {
@@ -267,7 +267,7 @@ function detectIiifImageApiUrls() {
 
   document.querySelectorAll('img[src]').forEach((img) => {
     check(img.getAttribute('src'), {
-      selector: 'img',
+      selector: buildSelector(img),
       alt: img.alt || '',
       width: img.naturalWidth || img.width,
       height: img.naturalHeight || img.height,

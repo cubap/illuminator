@@ -161,7 +161,7 @@
         var type = item['@type'] || '';
         var ctxStr = Array.isArray(ctx) ? ctx.join(' ') : String(ctx);
 
-        if (ctxStr.includes('iiif.io') || type === 'sc:Manifest' || type === 'Manifest') {
+        if (ctxStr.includes('//iiif.io/') || type === 'sc:Manifest' || type === 'Manifest') {
           var url = item.id || item['@id'] || null;
           hits.push({
             resourceType: ResourceType.MANIFEST,

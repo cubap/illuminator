@@ -1,0 +1,365 @@
+/* ==========================================================================
+   Illuminator Popup – Styles
+   ========================================================================== */
+
+:root {
+  --il-bg: #1e1e2e;
+  --il-surface: #2a2a3e;
+  --il-surface-2: #32324a;
+  --il-border: #3d3d5c;
+  --il-text: #e0e0f0;
+  --il-text-muted: #9090b0;
+  --il-accent: #e67e22;
+  --il-accent-dark: #c0642a;
+  --il-blue: #4a9eff;
+  --il-green: #4caf7d;
+  --il-yellow: #f0c030;
+  --il-red: #e05555;
+  --il-radius: 6px;
+  --il-font: system-ui, -apple-system, sans-serif;
+  --il-font-mono: "Fira Mono", "Consolas", monospace;
+}
+
+/* Reset */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 14px;
+}
+
+body {
+  width: 380px;
+  min-height: 300px;
+  max-height: 600px;
+  overflow-y: auto;
+  font-family: var(--il-font);
+  background: var(--il-bg);
+  color: var(--il-text);
+  scrollbar-width: thin;
+  scrollbar-color: var(--il-border) transparent;
+}
+
+/* --------------------------------------------------------------------------
+   Header
+   -------------------------------------------------------------------------- */
+
+.il-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  background: var(--il-surface);
+  border-bottom: 1px solid var(--il-border);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.il-logo img {
+  display: block;
+  border-radius: 4px;
+}
+
+.il-title {
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--il-accent);
+  flex: 1;
+}
+
+/* --------------------------------------------------------------------------
+   Status bar
+   -------------------------------------------------------------------------- */
+
+.il-status {
+  padding: 6px 14px;
+  font-size: 0.8rem;
+  color: var(--il-text-muted);
+  background: var(--il-bg);
+  border-bottom: 1px solid var(--il-border);
+  min-height: 28px;
+}
+
+.il-status.il-status--scanning {
+  color: var(--il-accent);
+}
+
+.il-status.il-status--done {
+  color: var(--il-green);
+}
+
+.il-status.il-status--error {
+  color: var(--il-red);
+}
+
+/* --------------------------------------------------------------------------
+   Sections
+   -------------------------------------------------------------------------- */
+
+.il-section {
+  border-bottom: 1px solid var(--il-border);
+}
+
+.il-section-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px 6px;
+  background: var(--il-surface);
+}
+
+.il-section-title {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--il-text-muted);
+  flex: 1;
+}
+
+/* --------------------------------------------------------------------------
+   Buttons
+   -------------------------------------------------------------------------- */
+
+.il-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px 12px;
+  font-size: 0.8rem;
+  font-family: var(--il-font);
+  font-weight: 500;
+  border: none;
+  border-radius: var(--il-radius);
+  cursor: pointer;
+  transition: background 0.15s, opacity 0.15s;
+  white-space: nowrap;
+}
+
+.il-btn:focus-visible {
+  outline: 2px solid var(--il-accent);
+  outline-offset: 2px;
+}
+
+.il-btn--primary {
+  background: var(--il-accent);
+  color: #fff;
+}
+
+.il-btn--primary:hover {
+  background: var(--il-accent-dark);
+}
+
+.il-btn--primary:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.il-btn--ghost {
+  background: transparent;
+  color: var(--il-text-muted);
+  border: 1px solid var(--il-border);
+}
+
+.il-btn--ghost:hover {
+  background: var(--il-surface-2);
+  color: var(--il-text);
+}
+
+.il-btn--sm {
+  padding: 3px 8px;
+  font-size: 0.72rem;
+}
+
+/* --------------------------------------------------------------------------
+   Badge
+   -------------------------------------------------------------------------- */
+
+.il-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 20px;
+  height: 18px;
+  padding: 0 5px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  border-radius: 10px;
+  background: var(--il-surface-2);
+  color: var(--il-text-muted);
+}
+
+/* --------------------------------------------------------------------------
+   Resource list & cards
+   -------------------------------------------------------------------------- */
+
+.il-resource-list {
+  list-style: none;
+  padding: 4px 0;
+}
+
+.il-empty-state {
+  padding: 10px 14px;
+  font-size: 0.8rem;
+  color: var(--il-text-muted);
+  font-style: italic;
+}
+
+.il-resource-card {
+  padding: 8px 14px;
+  border-bottom: 1px solid var(--il-border);
+  transition: background 0.1s;
+  cursor: default;
+}
+
+.il-resource-card:last-child {
+  border-bottom: none;
+}
+
+.il-resource-card:hover,
+.il-resource-card:focus-visible {
+  background: var(--il-surface-2);
+  outline: none;
+}
+
+.il-card-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 4px;
+  flex-wrap: wrap;
+}
+
+.il-card-title {
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--il-text);
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
+}
+
+.il-card-url {
+  margin-bottom: 6px;
+}
+
+.il-url-link {
+  font-size: 0.72rem;
+  font-family: var(--il-font-mono);
+  color: var(--il-blue);
+  text-decoration: none;
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+.il-url-link:hover {
+  text-decoration: underline;
+}
+
+.il-card-actions {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 4px;
+  flex-wrap: wrap;
+}
+
+.il-card-meta {
+  font-size: 0.68rem;
+  color: var(--il-text-muted);
+}
+
+/* Type badges */
+.il-type-badge {
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 1px 5px;
+  border-radius: 3px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+
+.il-type-badge[data-type="manifest"]    { background: #4a4aff22; color: #8888ff; border: 1px solid #4a4aff55; }
+.il-type-badge[data-type="iiif-image"]  { background: #ff4a4a22; color: #ff8888; border: 1px solid #ff4a4a55; }
+.il-type-badge[data-type="image"]       { background: #4aff9922; color: #66ee99; border: 1px solid #4aff9955; }
+.il-type-badge[data-type="metadata"]    { background: #ffe04a22; color: #ffe080; border: 1px solid #ffe04a55; }
+.il-type-badge[data-type="unknown"]     { background: #88888822; color: #aaaaaa; border: 1px solid #88888855; }
+
+/* Confidence badges */
+.il-confidence-badge {
+  font-size: 0.62rem;
+  padding: 1px 5px;
+  border-radius: 3px;
+  font-style: italic;
+  white-space: nowrap;
+}
+
+.il-confidence-badge[data-confidence="explicit"]    { background: #4caf7d22; color: var(--il-green); }
+.il-confidence-badge[data-confidence="inferred"]    { background: #f0c03022; color: var(--il-yellow); }
+.il-confidence-badge[data-confidence="speculative"] { background: #e0555522; color: var(--il-red); }
+
+/* Stash action button */
+.il-btn--stash {
+  background: var(--il-surface-2);
+  color: var(--il-text);
+  border: 1px solid var(--il-border);
+}
+
+.il-btn--stash:hover {
+  border-color: var(--il-accent);
+  color: var(--il-accent);
+}
+
+.il-btn--remove {
+  background: var(--il-surface-2);
+  color: var(--il-red);
+  border: 1px solid var(--il-border);
+}
+
+.il-btn--remove:hover {
+  border-color: var(--il-red);
+  background: #e0555522;
+}
+
+.il-btn--view {
+  background: var(--il-surface-2);
+  color: var(--il-blue);
+  border: 1px solid var(--il-border);
+}
+
+.il-btn--view:hover {
+  border-color: var(--il-blue);
+  background: #4a9eff22;
+}
+
+/* Scanning animation */
+@keyframes il-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.il-scanning {
+  animation: il-pulse 1s ease-in-out infinite;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--il-border);
+  border-radius: 3px;
+}

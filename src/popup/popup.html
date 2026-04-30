@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Illuminator</title>
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+  <div id="illuminator-root" role="application" aria-label="Illuminator resource discovery">
+
+    <!-- Header -->
+    <header class="il-header">
+      <span class="il-logo" aria-hidden="true">
+        <img src="../../icons/icon-48.png" alt="" width="24" height="24" />
+      </span>
+      <h1 class="il-title">Illuminator</h1>
+      <button id="scan-btn" class="il-btn il-btn--primary" type="button" aria-label="Scan current page for resources">
+        Scan Page
+      </button>
+    </header>
+
+    <!-- Status bar -->
+    <div id="status-bar" class="il-status" role="status" aria-live="polite" aria-atomic="true">
+      Click <strong>Scan Page</strong> to discover resources.
+    </div>
+
+    <!-- Detection results -->
+    <section id="detection-section" class="il-section" aria-label="Detected resources">
+      <div class="il-section-header">
+        <h2 class="il-section-title">Detected Resources</h2>
+        <span id="detection-count" class="il-badge" aria-label="0 detected resources">0</span>
+      </div>
+      <ul id="resource-list" class="il-resource-list" aria-label="Detected resources list">
+        <li class="il-empty-state" id="detection-empty">No resources detected yet.</li>
+      </ul>
+    </section>
+
+    <!-- Stash -->
+    <section id="stash-section" class="il-section" aria-label="Saved resources (stash)">
+      <div class="il-section-header">
+        <h2 class="il-section-title">Stash</h2>
+        <span id="stash-count" class="il-badge" aria-label="0 stashed resources">0</span>
+        <button id="clear-stash-btn" class="il-btn il-btn--ghost il-btn--sm" type="button"
+                title="Remove all stashed resources" aria-label="Clear all stashed resources">
+          Clear all
+        </button>
+      </div>
+      <ul id="stash-list" class="il-resource-list" aria-label="Stashed resources list">
+        <li class="il-empty-state" id="stash-empty">No saved resources yet.</li>
+      </ul>
+    </section>
+
+  </div>
+
+  <!-- Resource card template -->
+  <template id="resource-card-template">
+    <li class="il-resource-card" data-id="" tabindex="0"
+        role="listitem" aria-label="Resource">
+      <div class="il-card-header">
+        <span class="il-type-badge" data-type=""></span>
+        <span class="il-confidence-badge" data-confidence=""></span>
+        <span class="il-card-title"></span>
+      </div>
+      <div class="il-card-url">
+        <a class="il-url-link" href="#" target="_blank" rel="noopener noreferrer"
+           aria-label="Open resource URL"></a>
+      </div>
+      <div class="il-card-actions">
+        <button class="il-btn il-btn--sm il-btn--stash" type="button" aria-label="Save to stash">
+          Save
+        </button>
+        <button class="il-btn il-btn--sm il-btn--remove" type="button" aria-label="Remove from stash"
+                style="display:none">
+          Remove
+        </button>
+        <button class="il-btn il-btn--sm il-btn--view" type="button" aria-label="Open resource in viewer">
+          View
+        </button>
+      </div>
+      <div class="il-card-meta">
+        <span class="il-via-label"></span>
+      </div>
+    </li>
+  </template>
+
+  <script src="popup.js" type="module"></script>
+</body>
+</html>

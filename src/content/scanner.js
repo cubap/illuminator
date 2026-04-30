@@ -24,13 +24,13 @@ import { createResourceRecord, ResourceType, Confidence, DetectedVia } from '../
  * Full URL form: {scheme}://{server}/{prefix}/{identifier}/{region}/{size}/{rotation}/{quality}.{format}
  * This regex matches the trailing API parameters: /{region}/{size}/{rotation}/{quality}.{format}
  *
- * region  – full | square | pct:n | x,y,w,h
+ * region  – full | square | pct:x,y,w,h (exactly 4 values) | x,y,w,h (exactly 4 integers)
  * size    – full | max | w, | ,h | w,h | pct:n
  * rotation – 0-360 integer
  * quality – default | native | color | gray | bitonal
  * format  – jpg | jpeg | tif | tiff | png | gif | jp2 | pdf | webp
  */
-const IIIF_IMAGE_API_RE = /\/(?:full|square|pct:\d+(?:,\d+)*(?:,\d+)*(?:,\d+)*|\d+,\d*,\d*,\d*)\/(?:full|max|\d+,|,\d+|\d+,\d+|pct:\d+)\/[0-9]+\/(?:default|native|color|gray|bitonal)\.(?:jpg|jpeg|tif|tiff|png|gif|jp2|pdf|webp)/i;
+const IIIF_IMAGE_API_RE = /\/(?:full|square|pct:\d+,\d+,\d+,\d+|\d+,\d+,\d+,\d+)\/(?:full|max|\d+,|,\d+|\d+,\d+|pct:\d+)\/[0-9]+\/(?:default|native|color|gray|bitonal)\.(?:jpg|jpeg|tif|tiff|png|gif|jp2|pdf|webp)/i;
 
 /** Matches a bare IIIF base URI ending in an identifier (heuristic). */
 const IIIF_INFO_JSON_RE = /\/info\.json(?:[?#].*)?$/i;
